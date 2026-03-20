@@ -13,7 +13,7 @@ public class LoginPage {
     }
 
     public void acessarPagina(){
-        driver.navigate().to("https://www.asaas.com/login/auth?customerSignUpOriginChannel=HOME_SALES_PARTNER");
+        driver.navigate().to("https://loja.ctrlplay.com.br/login");
     }
     public void colocarUsuário(){
         if(SeleniumUtils.foiEncontradoElementos(driver, By.cssSelector(""))){
