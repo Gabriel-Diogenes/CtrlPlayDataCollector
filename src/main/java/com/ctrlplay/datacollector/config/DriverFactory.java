@@ -38,6 +38,7 @@ public class DriverFactory {
 
         prefs.put("plugins.always_open_pdf_externally", true);
         options.addArguments("--disable-pdf-viewer");
+        options.addArguments("--incognito");
 
         options.setExperimentalOption("prefs", prefs);
 

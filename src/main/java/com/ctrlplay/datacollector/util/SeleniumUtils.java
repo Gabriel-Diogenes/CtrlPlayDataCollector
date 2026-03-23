@@ -1,10 +1,15 @@
 package com.ctrlplay.datacollector.util;
 
+import com.ctrlplay.datacollector.config.DriverFactory;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
+
 public class SeleniumUtils {
+
     public static boolean foiEncontradoElementos(SearchContext searcher, By by) {
         return foiEncontradoElementos(searcher, by, null, null, null, null);
     }
@@ -130,6 +135,32 @@ public class SeleniumUtils {
         }
         return false;
     }
+    public static boolean  verificaSeEstaNaPagina(String elemento,WebDriver driver){
 
+        if(SeleniumUtils.foiEncontradoElementos(driver, By.cssSelector(elemento),10)){
+            return true;
+        }else return false;
+    }
+
+    public static String trocarParaNovaGuia(WebDriver driver) {
+        String abaOriginal = driver.getWindowHandle();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(d -> d.getWindowHandles().size() > 1);
+
+        for (String aba : driver.getWindowHandles()) {
+            if (!aba.equals(abaOriginal)) {
+                driver.switchTo().window(aba);
+                break;
+            }
+        }
+
+        return abaOriginal;
+    }
+
+    public static void fecharGuiaEVoltar(WebDriver driver, String abaOriginal) {
+        driver.close();
+        driver.switchTo().window(abaOriginal);
+    }
 
 }
