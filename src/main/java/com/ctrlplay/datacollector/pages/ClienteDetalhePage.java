@@ -1,9 +1,7 @@
 package com.ctrlplay.datacollector.pages;
 
 import com.ctrlplay.datacollector.config.DriverFactory;
-import com.ctrlplay.datacollector.exceptions.ElementoNaoEncontradoException;
 import com.ctrlplay.datacollector.model.Cliente;
-import com.ctrlplay.datacollector.util.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

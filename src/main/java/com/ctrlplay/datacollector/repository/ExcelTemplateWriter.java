@@ -21,7 +21,7 @@ public class ExcelTemplateWriter {
 
             Sheet sheet = workbook.getSheet(NOME_ABA);
 
-            int linhaInicial = 8; // linha 9 (começa do 0)
+            int linhaInicial = 8;
 
             for (Cliente c : clientes) {
 

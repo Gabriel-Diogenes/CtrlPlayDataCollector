@@ -1,6 +1,5 @@
 package com.ctrlplay.datacollector.util;
 
-import com.ctrlplay.datacollector.config.DriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
