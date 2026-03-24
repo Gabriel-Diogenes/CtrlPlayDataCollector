@@ -3,6 +3,7 @@ package com.ctrlplay.datacollector;
 import com.ctrlplay.datacollector.config.DriverFactory;
 import com.ctrlplay.datacollector.model.Cliente;
 import com.ctrlplay.datacollector.services.ClienteService;
+import com.ctrlplay.datacollector.services.ExportacaoService;
 import com.ctrlplay.datacollector.services.LoginService;
 import org.openqa.selenium.WebDriver;
 
@@ -19,6 +20,8 @@ public class Main {
 
             ClienteService clienteService = new ClienteService();
             List<Cliente> clientes = clienteService.buscarInformacoesCliente(driver);
+            ExportacaoService exportacaoService = new ExportacaoService();
+            exportacaoService.exportar(clientes);
 
         }catch (Exception e){
             e.printStackTrace();
