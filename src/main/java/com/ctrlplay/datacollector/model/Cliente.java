@@ -18,6 +18,7 @@ public class Cliente {
     private String valorPago;
     private String dataVencimento;
     private String parcela;
+    private String nomeFilhoCliente;
 
 
     public String getNomeResponsavel() {
@@ -138,6 +139,14 @@ public class Cliente {
 
     public void setParcela(String parcela) {
         this.parcela = parcela;
+    }
+
+    public String getNomeFilhoCliente() {
+        return nomeFilhoCliente;
+    }
+
+    public void setNomeFilhoCliente(String nomeFilhoCliente) {
+        this.nomeFilhoCliente = nomeFilhoCliente;
     }
 
     public Cliente clone() {

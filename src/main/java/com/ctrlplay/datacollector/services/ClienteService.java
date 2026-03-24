@@ -8,6 +8,8 @@ import com.ctrlplay.datacollector.util.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import com.ctrlplay.datacollector.repository.ControleRepository;
+import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,25 @@ public class ClienteService {
         this.clientePedidoPage = new ClientePedidoPage();
     }
 
+    private String gerarChave(Cliente cliente) {
+
+        String cpf = cliente.getCpf() != null ? cliente.getCpf().trim() : "";
+        String filho = cliente.getNomeFilhoCliente() != null
+                ? cliente.getNomeFilhoCliente().trim().toLowerCase()
+                : "";
+        String parcela = cliente.getParcela() != null
+                ? cliente.getParcela().trim()
+                : "";
+
+        return cpf + "_" + filho + "_" + parcela;
+    }
+
     public List<Cliente> buscarInformacoesCliente(WebDriver driver) throws InterruptedException {
 
         List<Cliente> listaClientes = new ArrayList<>();
         boolean temProximaPagina = true;
+        ControleRepository controleRepo = new ControleRepository();
+        Set<String> controle = controleRepo.carregar();
         while(temProximaPagina){
             int total = clientesPage.quantidadeClientesNaPagina(driver);
             for (int i = 0; i < total; i++) {
@@ -57,7 +74,19 @@ public class ClienteService {
 
                 List<Cliente> clientesPedidos = clientePedidoPage.processarPedidos(driver, clienteBase);
 
-                listaClientes.addAll(clientesPedidos);
+                for (Cliente clientePedido : clientesPedidos) {
+
+                    String chave = gerarChave(clientePedido);
+
+                    if (!controle.contains(chave)) {
+
+                        listaClientes.add(clientePedido);
+                        controle.add(chave);
+
+                    } else {
+                        System.out.println("Ignorando duplicado: " + chave);
+                    }
+                }
 
                 SeleniumUtils.fecharGuiaEVoltar(driver, guia);
             }
@@ -70,7 +99,7 @@ public class ClienteService {
                 Thread.sleep(3000);
             }
         }
-
+        controleRepo.salvar(controle);
         return listaClientes;
     }
 }

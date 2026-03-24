@@ -69,6 +69,21 @@ public class ClientePedidoPage {
         return lista;
     }
 
+    public String pegarNomedoFilho(WebDriver driver){
+        List<WebElement> tabelas = driver.findElements(By.cssSelector("table.table"));
+
+        WebElement tabela = tabelas.get(3);
+
+        List<WebElement> linhas = tabela.findElements(By.cssSelector("tr.pdf-enrollment-list"));
+
+        WebElement primeiraLinha = linhas.get(0);
+
+        List<WebElement> colunas = primeiraLinha.findElements(By.tagName("td"));
+
+        String nomeAluno = colunas.get(0).getText().trim();
+        return nomeAluno;
+    }
+
     public void buscarParcelaAtual(WebDriver driver, Cliente cliente) {
         if(!SeleniumUtils.foiEncontradoElementos(driver,By.cssSelector("#wrapper > div.main.container.mx-auto > div >" +
                                                                         " div.container.tex" +
@@ -99,6 +114,7 @@ public class ClientePedidoPage {
                 cliente.setValorPago(valor);
                 cliente.setDataVencimento(vencimento);
                 cliente.setDataPagamento(pagoEm);
+                cliente.setNomeFilhoCliente(pegarNomedoFilho(driver));
 
                 break;
             }
