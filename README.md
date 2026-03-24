@@ -55,38 +55,6 @@ https://loja.ctrlplay.com.br
 - Aba: `Contas-Receber-CNA`
 - Arquivo final: `resultado.xls`
 
----
-
-# Estrutura do Projeto
-
-
-src/main/java/com/ctrlplay/datacollector
-│
-├── model
-│ └── Cliente.java
-│
-├── pages
-│ ├── ClientesPage.java
-│ ├── ClienteDetalhePage.java
-│ └── ClientePedidoPage.java
-│
-├── services
-│ ├── ClienteService.java
-│ └── ExportacaoService.java
-│
-├── repository
-│ ├── ControleRepository.java
-│ └── ExcelTemplateWriter.java
-│
-├── util
-│ ├── DriverFactory.java
-│ └── SeleniumUtils.java
-│
-└── Main.java
-
-
----
-
 # Controle de duplicidade
 
 A aplicação utiliza um arquivo:
