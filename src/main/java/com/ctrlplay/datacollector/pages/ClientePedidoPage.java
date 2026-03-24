@@ -24,6 +24,8 @@ public class ClientePedidoPage {
 
     public List<Cliente> processarPedidos(WebDriver driver, Cliente clienteBase) {
 
+        if(!verficaSePedidoExiste(driver)) return new ArrayList<>();
+
         List<Cliente> lista = new ArrayList<>();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -34,38 +36,34 @@ public class ClientePedidoPage {
 
         for (int i = 0; i < total; i++) {
 
-            List<WebElement> linhasAtualizadas = driver.findElements(By.cssSelector("#dataTableBuilder tbody tr"));
-            WebElement linha = linhasAtualizadas.get(i);
+        List<WebElement> linhasAtualizadas = driver.findElements(By.cssSelector("#dataTableBuilder tbody tr"));
+        WebElement linha = linhasAtualizadas.get(i);
 
-            try {
-                WebElement botaoDetalhes = linha.findElement(
-                        By.cssSelector("td:nth-child(7) a[title='Detalhes']")
-                );
+            WebElement botaoDetalhes = linha.findElement(
+                    By.cssSelector("td:nth-child(7) a[title='Detalhes']")
+            );
 
-                botaoDetalhes.click();
+            botaoDetalhes.click();
 
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("table.table")));
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("table.table")));
 
-                Cliente clienteAtual;
+            Cliente clienteAtual;
 
-                if (total > 1) {
-                    clienteAtual = clienteBase.clone();
-                } else {
-                    clienteAtual = clienteBase;
-                }
-
-                buscarParcelaAtual(driver, clienteAtual);
-
-                if (clienteAtual.getValorPago() != null && !clienteAtual.getValorPago().isEmpty()) {
-                    lista.add(clienteAtual);
-                }
-
-                driver.navigate().back();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#dataTableBuilder tbody")));
-
-            } catch (Exception e) {
-                System.out.println("Erro ao processar pedido: " + e.getMessage());
+            if (total > 1) {
+                clienteAtual = clienteBase.clone();
+            } else {
+                clienteAtual = clienteBase;
             }
+
+            buscarParcelaAtual(driver, clienteAtual);
+
+            if (clienteAtual.getValorPago() != null && !clienteAtual.getValorPago().isEmpty()) {
+                lista.add(clienteAtual);
+            }
+
+            driver.navigate().back();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#dataTableBuilder tbody")));
+
         }
 
         return lista;
@@ -76,7 +74,12 @@ public class ClientePedidoPage {
                                                                         " div.container.tex" +
                                                                         "t-center.mt-5.mb-3 > h1"),5)) return;
 
-        List<WebElement> linhas = driver.findElements(By.cssSelector("table.table tr"));
+        List<WebElement> tabelas = driver.findElements(By.cssSelector("table.table"));
+
+        if (tabelas.size() < 2) return;
+
+        WebElement segundaTabela = tabelas.get(1);
+        List<WebElement> linhas = segundaTabela.findElements(By.tagName("tr"));
 
         for (int i = linhas.size() - 1; i > 0; i--) {
 

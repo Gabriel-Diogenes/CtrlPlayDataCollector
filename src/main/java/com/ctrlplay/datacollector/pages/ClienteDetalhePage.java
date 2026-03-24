@@ -29,12 +29,7 @@ public class ClienteDetalhePage {
         cliente.setComplemento(driver.findElement(By.cssSelector("body > div.wrapper > div > div > div.box.box-primary > div > div > div:nth-child(13) > p")).getText());
     }
 
-    public void voltarParaPaginaCliente(WebDriver driver) throws InterruptedException {
-        if (SeleniumUtils.foiEncontradoElementos(driver,By.cssSelector(".box-primary .form-group.no-margin a"))){
-            driver.findElement(By.cssSelector(".box-primary .form-group.no-margin a")).click();
-            Thread.sleep(1000);
-        }else{
-            throw  new ElementoNaoEncontradoException("Não conseguiu voltar para a pagina cliente");
-        }
+    public void voltarParaPaginaCliente(WebDriver driver) {
+        driver.navigate().back();
     }
 }
