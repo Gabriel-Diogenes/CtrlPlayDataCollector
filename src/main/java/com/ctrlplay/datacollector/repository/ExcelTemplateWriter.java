@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ExcelTemplateWriter {
 
-    private static final String CAMINHO_TEMPLATE = "C:\\ROBOS\\CtrlPlayDataCollector\\TEMPLATE CTRLPLAY.xls";
+    private static final String CAMINHO_TEMPLATE = "/home/ubuntu/TEMPLATE CTRLPLAY.xls";
     private static final String NOME_ABA = "ContasReceber-CNA";
 
     public void preencherTemplate(List<Cliente> clientes) {

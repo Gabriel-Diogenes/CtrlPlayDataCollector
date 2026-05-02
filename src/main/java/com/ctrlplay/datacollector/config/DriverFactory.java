@@ -20,31 +20,27 @@ public class DriverFactory {
     }
 
     private static void createDriver() {
-
         WebDriverManager.chromedriver().setup();
-
-        System.setProperty("webdriver.chrome.driver", "C:/ROBOS/chromedriver_win32/chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
 
-        String userProfile = System.getProperty("user.home") + "\\AppData\\Local\\Google\\Chrome\\User Data\\CtrlPlayDataCollector";
-
-        options.addArguments("user-data-dir=" + userProfile);
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--incognito");
+        options.addArguments("--disable-pdf-viewer");
 
         prefs.put("download.prompt_for_download", false);
         prefs.put("download.directory_upgrade", true);
         prefs.put("safebrowsing.enabled", true);
-
         prefs.put("plugins.always_open_pdf_externally", true);
-        options.addArguments("--disable-pdf-viewer");
-        options.addArguments("--incognito");
 
         options.setExperimentalOption("prefs", prefs);
 
         driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
     }
 
     public static void quitDriver() {

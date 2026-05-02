@@ -24,7 +24,7 @@ public class Main {
             ExportacaoService exportacaoService = new ExportacaoService();
             exportacaoService.exportar(clientes);;
 
-            String caminhoArquivo = "C:\\Users\\gabri\\OneDrive\\Documentos\\git\\CtrlPlayDataCollector\\resultado.xls";
+            String caminhoArquivo = "/home/ubuntu/CtrlPlayDataCollector/resultado.xls";
             EmailService emailService = new EmailService();
             emailService.enviarPlanilha(caminhoArquivo);
 
