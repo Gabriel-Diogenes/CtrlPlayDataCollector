@@ -16,7 +16,7 @@ public class ExcelTemplateWriter {
 
     public void preencherTemplate(List<Cliente> clientes) {
 
-        try (FileInputStream fis = new FileInputStream(new File(CAMINHO_TEMPLATE));
+        try (FileInputStream fis = new FileInputStream(CAMINHO_TEMPLATE);
              Workbook workbook = new HSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheet(NOME_ABA);
