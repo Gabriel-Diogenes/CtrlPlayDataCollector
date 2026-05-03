@@ -107,8 +107,9 @@ public class ClientePedidoPage {
             String vencimento = colunas.get(3).getText().trim();
             String status = colunas.get(4).getText().trim().toLowerCase();
             String pagoEm = colunas.get(5).getText().trim();
-            if(status.contains("Cancelado")) return;
-            if (status.contains("pago")) {
+            if(status.contains("ancelado")) return;
+            if(status.contains("encida")) return;
+            if (status.equals("pago")) {
 
                 cliente.setParcela(parcela);
                 cliente.setValorPago(valor);
